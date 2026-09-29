@@ -176,5 +176,18 @@ class OfflineEndToEndTests(unittest.TestCase):
         self.assertEqual(data["results"][0]["asin"], "SAMPLE0034")
 
 
+class MarkdownOutputTests(unittest.TestCase):
+    def test_table_escapes_pipes_and_labels_alternatives(self):
+        from amazon_search.cli import format_markdown
+        from amazon_search.models import ScoredProduct, SearchReport
+
+        p = Product(asin="A1", title="Cable | 2 pack", url="https://www.amazon.co.uk/dp/A1", display_price="£9.99")
+        report = SearchReport("cabel", [ScoredProduct(p, 0.8, MatchType.FALLBACK, "cable")], [], ["spelling"])
+        md = format_markdown(report)
+        self.assertIn("[Cable \\| 2 pack](https://www.amazon.co.uk/dp/A1)", md)
+        self.assertIn("found via “cable”", md)
+        self.assertIn("| £9.99 |", md)
+
+
 if __name__ == "__main__":
     unittest.main()
