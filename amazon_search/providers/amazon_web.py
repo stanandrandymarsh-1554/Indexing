@@ -37,9 +37,13 @@ HEADERS = {
     "Accept-Encoding": "gzip, deflate",
 }
 
+DEFAULT_MARKETPLACE = "www.amazon.co.uk"
+
 # Search-index names (as used by the Creators API and the --category option) -> the
-# department alias Amazon's search URL uses (the `i=` parameter). Unknown names pass through.
-DEPARTMENTS = {
+# department alias Amazon's search URL uses (the `i=` parameter). The aliases differ between
+# Amazon sites; unknown names pass through unchanged. If a category filter finds nothing, the
+# search engine retries without it, so a wrong alias costs one request, not the search.
+DEPARTMENTS_US = {
     "all": "aps",
     "electronics": "electronics",
     "computers": "computers",
@@ -61,6 +65,29 @@ DEPARTMENTS = {
     "baby": "baby-products",
     "health": "hpc",
     "healthpersonalcare": "hpc",
+}
+
+DEPARTMENTS_UK = {
+    "all": "aps",
+    "electronics": "electronics",
+    "computers": "computers",
+    "homeandkitchen": "kitchen",
+    "kitchen": "kitchen",
+    "fashion": "fashion",
+    "sportsandoutdoors": "sports",
+    "toysandgames": "toys",
+    "petsupplies": "pets",
+    "beauty": "beauty",
+    "tools": "diy",
+    "toolsandhomeimprovement": "diy",
+    "diy": "diy",
+    "books": "stripbooks",
+    "videogames": "videogames",
+    "automotive": "automotive",
+    "grocery": "grocery",
+    "baby": "baby",
+    "health": "drugstore",
+    "healthpersonalcare": "drugstore",
 }
 
 SORTS = {
@@ -92,13 +119,16 @@ class AmazonWebProvider:
 
     def __init__(
         self,
-        marketplace: str = "www.amazon.com",
+        marketplace: str = DEFAULT_MARKETPLACE,
         min_interval: float = 3.0,
         timeout: float = 20.0,
         include_sponsored: bool = False,
         opener: Optional[Callable[..., Any]] = None,
     ) -> None:
         self.host = marketplace.removeprefix("https://").removeprefix("http://").strip("/")
+        uk = self.host.endswith(".co.uk")
+        self.departments = DEPARTMENTS_UK if uk else DEPARTMENTS_US
+        self.headers = dict(HEADERS, **({"Accept-Language": "en-GB,en;q=0.9"} if uk else {}))
         self.min_interval = min_interval
         self.timeout = timeout
         self.include_sponsored = include_sponsored
@@ -114,11 +144,11 @@ class AmazonWebProvider:
         params: dict[str, str] = {"k": keywords}
         if filters.search_index:
             key = re.sub(r"[^a-z]", "", filters.search_index.lower())
-            params["i"] = DEPARTMENTS.get(key, filters.search_index)
+            params["i"] = self.departments.get(key, filters.search_index)
         if filters.min_price is not None or filters.max_price is not None:
             lo = "" if filters.min_price is None else str(round(filters.min_price * 100))
             hi = "" if filters.max_price is None else str(round(filters.max_price * 100))
-            params["rh"] = f"p_36:{lo}-{hi}"  # price range in cents
+            params["rh"] = f"p_36:{lo}-{hi}"  # price range in pence/cents
         if filters.sort_by and filters.sort_by in SORTS:
             params["s"] = SORTS[filters.sort_by]
         if page > 1:
@@ -147,7 +177,7 @@ class AmazonWebProvider:
             if wait > 0:
                 time.sleep(wait)
             self._last_request_at = time.monotonic()
-        req = urllib.request.Request(url, headers=HEADERS)
+        req = urllib.request.Request(url, headers=self.headers)
         try:
             with self._open(req, timeout=self.timeout) as resp:
                 raw = resp.read()
@@ -278,7 +308,7 @@ class SearchPageParser(HTMLParser):
                 cur[field] = text
 
 
-def parse_search_page(html: str, host: str = "www.amazon.com", include_sponsored: bool = False) -> list[Product]:
+def parse_search_page(html: str, host: str = DEFAULT_MARKETPLACE, include_sponsored: bool = False) -> list[Product]:
     parser = SearchPageParser()
     parser.feed(html)
     parser.close()

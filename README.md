@@ -58,7 +58,7 @@ Amazon changes its page layout now and then. If searches suddenly return nothing
 code in `amazon_search/providers/amazon_web.py` probably needs updating. If you ever share this
 tool, switch to the `api` backend or a paid product-data service.
 
-Use `--marketplace www.amazon.co.uk` (or `AMAZON_MARKETPLACE`) for another Amazon country site.
+It searches **amazon.co.uk** by default. Use `--marketplace www.amazon.com` (or set `AMAZON_MARKETPLACE`) for another Amazon country site.
 
 #### `api`: Amazon Creators API
 

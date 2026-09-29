@@ -51,7 +51,11 @@ def build_parser() -> argparse.ArgumentParser:
     b.add_argument("--offline", action="store_true", help="same as --backend offline")
     b.add_argument("--include-sponsored", action="store_true", help="web backend: keep sponsored (ad) results")
     b.add_argument("--catalog", metavar="FILE.json", help="catalog for --offline (default: bundled sample catalog)")
-    b.add_argument("--marketplace", help="e.g. www.amazon.co.uk (default: $AMAZON_MARKETPLACE or www.amazon.com)")
+    b.add_argument(
+        "--marketplace",
+        help="Amazon site, e.g. www.amazon.com (default: $AMAZON_MARKETPLACE, else www.amazon.co.uk "
+        "for web and www.amazon.com for api)",
+    )
     b.add_argument("--lexicon", help="path to a custom lexicon.json (synonyms, abbreviations, ...)")
     b.add_argument("--no-learn", action="store_true", help="don't remember words seen in results between runs")
     o = p.add_argument_group("output")
@@ -78,10 +82,10 @@ def make_provider(args: argparse.Namespace):
 
         return OfflineProvider.from_file(args.catalog)
     if backend == "web":
-        from .providers.amazon_web import AmazonWebProvider
+        from .providers.amazon_web import DEFAULT_MARKETPLACE, AmazonWebProvider
 
         return AmazonWebProvider(
-            marketplace=args.marketplace or os.environ.get("AMAZON_MARKETPLACE", "www.amazon.com"),
+            marketplace=args.marketplace or os.environ.get("AMAZON_MARKETPLACE", DEFAULT_MARKETPLACE),
             include_sponsored=args.include_sponsored,
         )
     from .providers.creators_api import CreatorsApiProvider
