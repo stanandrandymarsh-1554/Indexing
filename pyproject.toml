@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amazon-search"
+version = "0.1.0"
+description = "Thorough Amazon product search with related-term expansion and zero-result fallback"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+amazon-search = "amazon_search.cli:main"
+
+[tool.setuptools]
+packages = ["amazon_search", "amazon_search.providers", "amazon_search.data"]
+
+[tool.setuptools.package-data]
+"amazon_search.data" = ["*.json"]
