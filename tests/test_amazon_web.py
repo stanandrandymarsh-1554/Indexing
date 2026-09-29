@@ -64,7 +64,7 @@ class ParseTests(unittest.TestCase):
     def test_fields(self):
         p = self.products["B0TEST0001"]
         self.assertEqual(p.title, "Wireless Noise Cancelling Over-Ear Headphones, 40H Battery")
-        self.assertEqual(p.url, "https://www.amazon.com/dp/B0TEST0001")
+        self.assertEqual(p.url, "https://www.amazon.co.uk/dp/B0TEST0001")
         self.assertEqual((p.price, p.currency, p.display_price), (79.99, "USD", "$79.99"))  # not the struck-out $99.99
         self.assertEqual((p.rating, p.review_count), (4.5, 12840))
         self.assertEqual(p.image_url, "https://m.media-amazon.com/images/I/test1.jpg")
@@ -80,7 +80,7 @@ class ParseTests(unittest.TestCase):
 
 class ProviderTests(unittest.TestCase):
     def test_url_includes_filters(self):
-        prov, _ = provider()
+        prov, _ = provider(marketplace="www.amazon.com")
         url = prov.search_url(
             "usb c cable", SearchFilters(search_index="Electronics", min_price=5, max_price=20, sort_by="Price:LowToHigh"), 2
         )
@@ -88,11 +88,22 @@ class ProviderTests(unittest.TestCase):
         self.assertTrue(url.startswith("https://www.amazon.com/s?"))
         self.assertEqual(q, {"k": ["usb c cable"], "i": ["electronics"], "rh": ["p_36:500-2000"], "s": ["price-asc-rank"], "page": ["2"]})
 
-    def test_open_ended_price_and_other_marketplace(self):
-        prov = AmazonWebProvider(marketplace="https://www.amazon.co.uk/", min_interval=0)
-        url = prov.search_url("kettle", SearchFilters(max_price=30))
+    def test_uk_is_the_default_with_uk_departments_and_language(self):
+        prov, opener = provider(PAGE)
+        url = prov.search_url("kettle", SearchFilters(max_price=30, search_index="HomeAndKitchen"))
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
         self.assertTrue(url.startswith("https://www.amazon.co.uk/s?"))
-        self.assertIn("rh=p_36%3A-3000", url)
+        self.assertEqual((q["i"], q["rh"]), (["kitchen"], ["p_36:-3000"]))
+        self.assertEqual(prov.headers["Accept-Language"], "en-GB,en;q=0.9")
+
+    def test_marketplace_url_forms(self):
+        prov = AmazonWebProvider(marketplace="https://www.amazon.de/", min_interval=0)
+        self.assertTrue(prov.search_url("x", SearchFilters()).startswith("https://www.amazon.de/s?"))
+
+    def test_pound_prices(self):
+        page = PAGE.replace("$79.99", "£79.99")
+        p = {p.asin: p for p in parse_search_page(page)}["B0TEST0001"]
+        self.assertEqual((p.price, p.currency), (79.99, "GBP"))
 
     def test_search_parses_gzip_page(self):
         prov, opener = provider(_Resp(gzip.compress(PAGE.encode()), "gzip"))
