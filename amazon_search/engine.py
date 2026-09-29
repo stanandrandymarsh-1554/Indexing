@@ -8,7 +8,7 @@ from typing import Optional
 from .expansion import QueryPlanner, Rewrite, normalize
 from .lexicon import Lexicon
 from .models import Attempt, MatchType, Product, ScoredProduct, SearchFilters, SearchReport
-from .providers.base import SearchProvider
+from .providers.base import ProviderError, SearchProvider
 from .relevance import rank_key, relevance
 
 
@@ -48,6 +48,22 @@ class SearchEngine:
         filters = filters or SearchFilters()
         run = _Run(self, query)
 
+        try:
+            self._run_stages(run, query, filters)
+        except ProviderError as e:
+            if not run.found:
+                raise
+            # Keep what we already have (e.g. Amazon started blocking partway through).
+            run.notes.append(f"Stopped early: {e}")
+
+        if run.out_of_budget:
+            run.notes.append(f"Stopped after {self.max_requests} requests (raise --max-requests to dig deeper).")
+
+        results = [r for r in run.found.values() if r.score >= self.min_score]
+        results.sort(key=lambda r: rank_key(r.score, r.match_type, r.product), reverse=True)
+        return SearchReport(query=query, results=results[:limit], attempts=run.attempts, notes=run.notes)
+
+    def _run_stages(self, run: "_Run", query: str, filters: SearchFilters) -> None:
         # Stage 1: the query exactly as typed, across several pages.
         for page in range(1, self.pages + 1):
             got = run.fetch("exact", Rewrite(query, filters, ""), page, MatchType.EXACT)
@@ -73,13 +89,6 @@ class SearchEngine:
                     break
             if not run.found:
                 run.notes.append("Nothing matched even after relaxing the search.")
-
-        if run.out_of_budget:
-            run.notes.append(f"Stopped after {self.max_requests} API requests (raise --max-requests to dig deeper).")
-
-        results = [r for r in run.found.values() if r.score >= self.min_score]
-        results.sort(key=lambda r: rank_key(r.score, r.match_type, r.product), reverse=True)
-        return SearchReport(query=query, results=results[:limit], attempts=run.attempts, notes=run.notes)
 
     def _cached_search(self, keywords: str, filters: SearchFilters, page: int) -> tuple[list[Product], bool]:
         key = (normalize(keywords), tuple(sorted(asdict(filters).items())), page)

@@ -30,14 +30,40 @@ pip install .            # installs the `amazon-search` command
 python -m amazon_search --help
 ```
 
-### Amazon credentials
+### Where results come from
 
-Real searches go through Amazon's **Creators API**, the official product-search API for Amazon
-Associates. It replaced the Product Advertising API 5.0, which Amazon retired in May 2026. You need:
+The tool has three backends, chosen with `--backend`:
 
-- an [Amazon Associates](https://affiliate-program.amazon.com/) account, and
-- Creators API credentials (a credential ID, a secret and a version such as `3.1`), which you
-  create in Associates Central.
+| Backend | What it does | Needs |
+|---|---|---|
+| `web` (default) | Reads the same search-results pages you'd see on amazon.com | Nothing |
+| `api` | Amazon's official **Creators API** | An Amazon Associates account with at least 10 qualifying sales in the past 30 days |
+| `offline` | A small bundled catalog of made-up products | Nothing (for testing) |
+
+If `AMAZON_CREDENTIAL_ID` is set, the default is `api`; otherwise it's `web`. You can also set
+`AMAZON_SEARCH_BACKEND` to `web`, `api` or `offline`.
+
+#### `web`: amazon.com directly
+
+Intended for **personal, low-volume use only**. Amazon's Conditions of Use don't allow automated
+access, and Amazon blocks clients it thinks are bots. To keep that unlikely, the client:
+
+- waits 3 seconds between requests and makes at most 12 per search by default (`--max-requests`),
+  so a thorough search takes around 30 seconds;
+- leaves out sponsored results (`--include-sponsored` keeps them);
+- stops at once, without retrying, if Amazon shows a robot check. It keeps any results found so
+  far and tells you. If that happens, wait an hour or more before searching again.
+
+Amazon changes its page layout now and then. If searches suddenly return nothing, the parsing
+code in `amazon_search/providers/amazon_web.py` probably needs updating. If you ever share this
+tool, switch to the `api` backend or a paid product-data service.
+
+Use `--marketplace www.amazon.co.uk` (or `AMAZON_MARKETPLACE`) for another Amazon country site.
+
+#### `api`: Amazon Creators API
+
+The Creators API replaced the Product Advertising API 5.0, which Amazon retired in May 2026.
+Create credentials (a credential ID, a secret and a version such as `3.1`) in Associates Central:
 
 ```sh
 export AMAZON_CREDENTIAL_ID="..."
@@ -53,11 +79,13 @@ export AMAZON_MARKETPLACE="www.amazon.com"    # optional, e.g. www.amazon.co.uk
 | 2.2 / 3.2 | Cognito / Login with Amazon | Europe, Middle East, India |
 | 2.3 / 3.3 | Cognito / Login with Amazon | Far East |
 
-### Try it without credentials
+The client sends at most one request per second and retries politely when throttled (HTTP 429).
 
-`--offline` searches a small bundled sample catalog (`amazon_search/data/sample_catalog.json`,
-made-up products). It behaves like the real API: every word must match and filters narrow
-the results. That makes it useful for seeing the fallback logic at work. You can point
+#### `offline`: sample catalog
+
+`--offline` (same as `--backend offline`) searches a small bundled sample catalog
+(`amazon_search/data/sample_catalog.json`, made-up products). Like Amazon, it requires every
+word to match, and filters narrow the results. That makes it useful for seeing the fallback logic at work. You can point
 `--catalog` at your own JSON file with the same fields.
 
 ```sh
@@ -91,21 +119,21 @@ amazon-search                                   # interactive prompt
 | `--min-rating` | 1–4, "at least N stars" |
 | `--sort` | `Relevance`, `Price:LowToHigh`, `Price:HighToLow`, `AvgCustomerReviews`, `NewestArrivals`, `Featured` |
 | `-n/--limit` | number of results to show (default 20) |
-| `--pages` | result pages to fetch for the exact query, 10 items each (default 2) |
+| `--pages` | result pages to fetch for the exact query (default 2) |
 | `--quick` | skip related-term searches when the exact query already has results |
 | `--min-results N` | keep loosening the search until at least N products are found |
 | `--min-score` | hide results that match less than this share of your query (0–1) |
-| `--max-requests` | limit on API calls per search (default 25) |
+| `--max-requests` | limit on requests to Amazon per search (default 12 for `web`, 25 for `api`) |
+| `--backend` | `web`, `api` or `offline` (see above) |
 
 Filters are treated as preferences. If they rule out everything, they're dropped one at a
 time and the output says which ones.
 
-### Rate limits
+### Speed
 
-The Creators API limits how many requests per second you can make. The client sends at most
-one request per second by default and retries politely when throttled (HTTP 429). A thorough
-search makes several API calls, so it can take a few seconds. Use `--max-requests` to limit
-the number of calls, or `--quick` for a single fast search when the exact query works.
+A thorough search makes several requests: the exact query, related terms and, if needed,
+fallbacks. Use `--quick` to skip related terms when the exact query already has results, or
+`--max-requests` to cap the number of requests.
 
 ### Improving term matching
 
@@ -147,6 +175,7 @@ amazon_search/
   lexicon.py        synonym/abbreviation/broader-term lookups and spelling vocabulary
   relevance.py      scores each product against the original query
   providers/
+    amazon_web.py   amazon.com search-page reader (default backend)
     creators_api.py Amazon Creators API client (OAuth2, throttling, retries)
     offline.py      local JSON catalog backend
   data/
