@@ -1,0 +1,86 @@
+name: Search Amazon
+run-name: "Search: ${{ inputs.query }}"
+
+# Run from the repo's Actions tab (or the GitHub mobile app): pick "Search Amazon", tap
+# "Run workflow", type what you're looking for. Results appear on the run's summary page.
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: What to search for
+        required: true
+        type: string
+      max_price:
+        description: Max price (optional, e.g. 50)
+        required: false
+        type: string
+      min_price:
+        description: Min price (optional)
+        required: false
+        type: string
+      min_rating:
+        description: Minimum star rating
+        type: choice
+        default: any
+        options: [any, "1", "2", "3", "4"]
+      sort:
+        description: Sort order
+        type: choice
+        default: Relevance
+        options: [Relevance, Price:LowToHigh, Price:HighToLow, AvgCustomerReviews, NewestArrivals]
+      results:
+        description: How many results to show
+        type: choice
+        default: "20"
+        options: ["10", "20", "30", "50"]
+      site:
+        description: Amazon site
+        type: choice
+        default: www.amazon.co.uk
+        options: [www.amazon.co.uk, www.amazon.com, www.amazon.de, www.amazon.fr, www.amazon.ca]
+      show_searches:
+        description: List every search that was tried
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Search
+        env:
+          QUERY: ${{ inputs.query }}
+          MAX_PRICE: ${{ inputs.max_price }}
+          MIN_PRICE: ${{ inputs.min_price }}
+          MIN_RATING: ${{ inputs.min_rating }}
+          SORT: ${{ inputs.sort }}
+          RESULTS: ${{ inputs.results }}
+          SITE: ${{ inputs.site }}
+          SHOW_SEARCHES: ${{ inputs.show_searches }}
+        run: |
+          args=(--markdown --backend web --marketplace "$SITE" --limit "$RESULTS" --sort "$SORT")
+          [ -n "$MAX_PRICE" ] && args+=(--max-price "$MAX_PRICE")
+          [ -n "$MIN_PRICE" ] && args+=(--min-price "$MIN_PRICE")
+          [ "$MIN_RATING" != "any" ] && args+=(--min-rating "$MIN_RATING")
+          [ "$SHOW_SEARCHES" = "true" ] && args+=(--verbose)
+
+          set +e
+          python -m amazon_search "${args[@]}" -- "$QUERY" > results.md 2> errors.txt
+          status=$?
+          set -e
+
+          cat results.md >> "$GITHUB_STEP_SUMMARY"
+          if [ -s errors.txt ]; then
+            { echo; echo "> ⚠️ $(tr '\n' ' ' < errors.txt)"; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          cat results.md errors.txt
+          # 0 = results, 1 = searched fine but found nothing, 2 = error (e.g. Amazon blocked us)
+          [ "$status" -le 1 ]

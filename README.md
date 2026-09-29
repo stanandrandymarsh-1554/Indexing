@@ -20,6 +20,24 @@ A command-line tool (and Python library) for searching Amazon thoroughly. It:
    exact match, a related-term match, or an alternative found by the fallback. The output
    also says which search found it.
 
+## Run it from GitHub (works on a phone)
+
+No install needed. On GitHub, open this repo's **Actions** tab (on the phone website, it may be
+under the **More** menu next to Code, Issues and Pull requests). Then:
+
+1. Pick **Search Amazon** in the list of workflows.
+2. Tap **Run workflow**, type what you're looking for, set any filters, and tap the green
+   **Run workflow** button.
+3. After a minute or so, the run shows a green tick. Open it to see the results table, with links to
+   each product on Amazon.
+
+Only people with write access to the repo can start a search. In a **public** repo, anyone can
+see the results pages, including what was searched for; make the repo private if you'd rather they
+didn't (private repos get 2,000 free Actions minutes a month; a search uses about one).
+
+If a run fails with a message about Amazon blocking automated requests, Amazon has refused
+GitHub's servers. Wait a while and try again, or run the tool on your own computer instead.
+
 ## Setup
 
 Python 3.9 or newer. There are no third-party dependencies.

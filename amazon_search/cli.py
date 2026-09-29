@@ -60,6 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
     b.add_argument("--no-learn", action="store_true", help="don't remember words seen in results between runs")
     o = p.add_argument_group("output")
     o.add_argument("--json", action="store_true", help="print machine-readable JSON")
+    o.add_argument("--markdown", action="store_true", help="print a Markdown table (used by the GitHub workflow)")
     o.add_argument("-v", "--verbose", action="store_true", help="show every query that was tried")
     return p
 
@@ -144,6 +145,8 @@ def main(argv: Optional[list[str]] = None) -> int:
                 continue
             if args.json:
                 print(json.dumps(report.to_dict(), indent=2))
+            elif args.markdown:
+                print(format_markdown(report, verbose=args.verbose))
             else:
                 print_report(report, verbose=args.verbose)
             if queries and not report.results:
@@ -215,6 +218,42 @@ def print_report(report: SearchReport, verbose: bool = False) -> None:
             extra = f" [{filt}]" if filt else ""
             note = f"  ({a.note})" if a.note else ""
             print(f"  {a.stage:<8} p{a.page}  {a.result_count:>3} hits  {a.keywords!r}{extra}{note}")
+
+
+def format_markdown(report: SearchReport, verbose: bool = False) -> str:
+    def cell(text: str) -> str:
+        return text.replace("|", "\\|").replace("\n", " ")
+
+    lines = [f"## Results for “{cell(report.query)}”", ""]
+    notes = list(report.notes)
+    if report.used_fallback:
+        notes.append("No exact match; showing the closest alternatives.")
+    lines += [f"> {cell(n)}  " for n in notes]
+    if notes:
+        lines.append("")
+    if not report.results:
+        lines.append("No products found.")
+    else:
+        lines += ["| # | | Product | Price | Rating | Match |", "|---|---|---|---|---|---|"]
+        for i, r in enumerate(report.results, 1):
+            p = r.product
+            img = f'<img src="{p.image_url}" width="60">' if p.image_url else ""
+            title = cell(textwrap.shorten(p.title, width=120, placeholder="…"))
+            name = f"[{title}]({p.url})" if p.url else title
+            if r.match_type is not MatchType.EXACT:
+                name += f"<br><sub>{LABEL[r.match_type].strip(' []')}: found via “{cell(r.found_by)}”</sub>"
+            price = p.display_price or (f"{p.price:.2f}" if p.price is not None else "–")
+            rating = f"{p.rating:.1f}★" if p.rating is not None else "–"
+            if p.review_count:
+                rating += f" ({p.review_count:,})"
+            lines.append(f"| {i} | {img} | {name} | {cell(price)} | {rating} | {r.score:.0%} |")
+    if verbose and report.attempts:
+        lines += ["", f"<details><summary>Searches tried ({len(report.attempts)})</summary>", ""]
+        lines += ["| Stage | Page | Hits | Keywords | Note |", "|---|---|---|---|---|"]
+        for a in report.attempts:
+            lines.append(f"| {a.stage} | {a.page} | {a.result_count} | {cell(a.keywords)} | {cell(a.note)} |")
+        lines += ["", "</details>"]
+    return "\n".join(lines)
 
 
 def asdict_nonnull(obj) -> dict:
