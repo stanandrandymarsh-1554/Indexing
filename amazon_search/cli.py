@@ -38,9 +38,18 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--quick", action="store_true", help="skip related-term expansion when the query has results")
     s.add_argument("--min-results", type=int, default=1, help="keep relaxing the query until this many results")
     s.add_argument("--min-score", type=float, default=0.0, help="hide results below this relevance (0-1)")
-    s.add_argument("--max-requests", type=int, default=25, help="cap on API calls per search (default 25)")
+    s.add_argument(
+        "--max-requests", type=int, help="cap on requests to Amazon per search (default: 12 for web, 25 for api)"
+    )
     b = p.add_argument_group("backend")
-    b.add_argument("--offline", action="store_true", help="search a local catalog instead of Amazon (no credentials)")
+    b.add_argument(
+        "--backend",
+        choices=["web", "api", "offline"],
+        help="web: read amazon.com search pages directly; api: Amazon Creators API (needs Associates "
+        "credentials); offline: bundled sample catalog. Default: api if AMAZON_CREDENTIAL_ID is set, else web",
+    )
+    b.add_argument("--offline", action="store_true", help="same as --backend offline")
+    b.add_argument("--include-sponsored", action="store_true", help="web backend: keep sponsored (ad) results")
     b.add_argument("--catalog", metavar="FILE.json", help="catalog for --offline (default: bundled sample catalog)")
     b.add_argument("--marketplace", help="e.g. www.amazon.co.uk (default: $AMAZON_MARKETPLACE or www.amazon.com)")
     b.add_argument("--lexicon", help="path to a custom lexicon.json (synonyms, abbreviations, ...)")
@@ -51,11 +60,30 @@ def build_parser() -> argparse.ArgumentParser:
     return p
 
 
-def make_provider(args: argparse.Namespace):
+def choose_backend(args: argparse.Namespace) -> str:
+    if args.backend:
+        return args.backend
     if args.offline or args.catalog:
+        return "offline"
+    env = os.environ.get("AMAZON_SEARCH_BACKEND")
+    if env in ("web", "api", "offline"):
+        return env
+    return "api" if os.environ.get("AMAZON_CREDENTIAL_ID") else "web"
+
+
+def make_provider(args: argparse.Namespace):
+    backend = choose_backend(args)
+    if backend == "offline":
         from .providers.offline import OfflineProvider
 
         return OfflineProvider.from_file(args.catalog)
+    if backend == "web":
+        from .providers.amazon_web import AmazonWebProvider
+
+        return AmazonWebProvider(
+            marketplace=args.marketplace or os.environ.get("AMAZON_MARKETPLACE", "www.amazon.com"),
+            include_sponsored=args.include_sponsored,
+        )
     from .providers.creators_api import CreatorsApiProvider
 
     return CreatorsApiProvider.from_env(marketplace=args.marketplace)
@@ -75,7 +103,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         return 2
 
     lexicon = Lexicon.load(args.lexicon)
-    offline = bool(args.offline or args.catalog)
+    backend = choose_backend(args)
+    offline = backend == "offline"
     learn_path = None if (args.no_learn or offline) else learned_words_path()
     if learn_path:
         lexicon.load_learned(learn_path)
@@ -87,7 +116,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         lexicon,
         pages=args.pages,
         thorough=not args.quick,
-        max_requests=args.max_requests,
+        max_requests=args.max_requests or (12 if backend == "web" else 25),
         min_results=args.min_results,
         min_score=args.min_score,
     )
