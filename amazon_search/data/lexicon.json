@@ -1,0 +1,837 @@
+{
+  "_comment": "Shopping-domain lexicon. 'synonyms': groups of interchangeable terms. 'abbreviations': short form -> long form (applied both ways). 'broader': specific term -> more general term, used when a search must be widened. 'vocabulary': extra words for spelling correction. Edit freely; the tool also learns words from result titles at runtime.",
+  "synonyms": [
+    [
+      "headphones",
+      "headset",
+      "earphones"
+    ],
+    [
+      "earbuds",
+      "in-ear headphones",
+      "wireless earphones"
+    ],
+    [
+      "laptop",
+      "notebook computer",
+      "notebook"
+    ],
+    [
+      "phone",
+      "smartphone",
+      "cell phone",
+      "mobile phone"
+    ],
+    [
+      "phone case",
+      "phone cover"
+    ],
+    [
+      "tablet",
+      "ipad"
+    ],
+    [
+      "television",
+      "tv",
+      "smart tv"
+    ],
+    [
+      "monitor",
+      "computer screen",
+      "display"
+    ],
+    [
+      "speaker",
+      "loudspeaker"
+    ],
+    [
+      "bluetooth speaker",
+      "wireless speaker",
+      "portable speaker"
+    ],
+    [
+      "charger",
+      "charging adapter",
+      "power adapter"
+    ],
+    [
+      "power bank",
+      "portable charger",
+      "battery pack"
+    ],
+    [
+      "cable",
+      "cord",
+      "wire"
+    ],
+    [
+      "mouse",
+      "computer mouse"
+    ],
+    [
+      "keyboard",
+      "computer keyboard"
+    ],
+    [
+      "webcam",
+      "web camera"
+    ],
+    [
+      "camera",
+      "digital camera"
+    ],
+    [
+      "hard drive",
+      "hdd",
+      "external drive"
+    ],
+    [
+      "flash drive",
+      "thumb drive",
+      "usb stick",
+      "usb drive"
+    ],
+    [
+      "memory card",
+      "sd card",
+      "microsd card"
+    ],
+    [
+      "router",
+      "wifi router",
+      "wireless router"
+    ],
+    [
+      "smartwatch",
+      "smart watch"
+    ],
+    [
+      "fitness tracker",
+      "activity tracker"
+    ],
+    [
+      "game console",
+      "video game console",
+      "gaming console"
+    ],
+    [
+      "controller",
+      "gamepad",
+      "joystick"
+    ],
+    [
+      "sneakers",
+      "trainers",
+      "running shoes",
+      "athletic shoes"
+    ],
+    [
+      "shoes",
+      "footwear"
+    ],
+    [
+      "boots",
+      "ankle boots"
+    ],
+    [
+      "sandals",
+      "flip flops",
+      "slides"
+    ],
+    [
+      "t-shirt",
+      "tee",
+      "tshirt"
+    ],
+    [
+      "sweater",
+      "jumper",
+      "pullover"
+    ],
+    [
+      "hoodie",
+      "hooded sweatshirt"
+    ],
+    [
+      "jacket",
+      "coat"
+    ],
+    [
+      "pants",
+      "trousers"
+    ],
+    [
+      "sweatpants",
+      "joggers",
+      "track pants"
+    ],
+    [
+      "purse",
+      "handbag"
+    ],
+    [
+      "backpack",
+      "rucksack",
+      "knapsack"
+    ],
+    [
+      "wallet",
+      "billfold"
+    ],
+    [
+      "sunglasses",
+      "shades"
+    ],
+    [
+      "couch",
+      "sofa",
+      "loveseat"
+    ],
+    [
+      "nightstand",
+      "bedside table"
+    ],
+    [
+      "dresser",
+      "chest of drawers"
+    ],
+    [
+      "bookshelf",
+      "bookcase"
+    ],
+    [
+      "rug",
+      "carpet",
+      "area rug"
+    ],
+    [
+      "blanket",
+      "throw"
+    ],
+    [
+      "comforter",
+      "duvet",
+      "quilt"
+    ],
+    [
+      "pillow",
+      "cushion"
+    ],
+    [
+      "lamp",
+      "light"
+    ],
+    [
+      "light bulb",
+      "bulb",
+      "led bulb"
+    ],
+    [
+      "flashlight",
+      "torch"
+    ],
+    [
+      "vacuum",
+      "vacuum cleaner",
+      "hoover"
+    ],
+    [
+      "robot vacuum",
+      "robotic vacuum"
+    ],
+    [
+      "air fryer",
+      "airfryer"
+    ],
+    [
+      "coffee maker",
+      "coffee machine",
+      "coffee brewer"
+    ],
+    [
+      "espresso machine",
+      "espresso maker"
+    ],
+    [
+      "blender",
+      "smoothie maker"
+    ],
+    [
+      "pan",
+      "skillet",
+      "frying pan"
+    ],
+    [
+      "pot",
+      "saucepan",
+      "stockpot"
+    ],
+    [
+      "knife set",
+      "kitchen knives",
+      "cutlery set"
+    ],
+    [
+      "water bottle",
+      "drink bottle",
+      "hydration bottle"
+    ],
+    [
+      "mug",
+      "cup"
+    ],
+    [
+      "tumbler",
+      "travel mug",
+      "insulated cup"
+    ],
+    [
+      "trash can",
+      "garbage can",
+      "bin",
+      "waste basket"
+    ],
+    [
+      "fridge",
+      "refrigerator"
+    ],
+    [
+      "freezer",
+      "deep freezer"
+    ],
+    [
+      "stroller",
+      "pram",
+      "pushchair"
+    ],
+    [
+      "diapers",
+      "nappies"
+    ],
+    [
+      "pacifier",
+      "dummy",
+      "soother"
+    ],
+    [
+      "toy",
+      "plaything"
+    ],
+    [
+      "puzzle",
+      "jigsaw puzzle"
+    ],
+    [
+      "lego",
+      "building blocks",
+      "building bricks"
+    ],
+    [
+      "dog food",
+      "dog kibble"
+    ],
+    [
+      "cat litter",
+      "kitty litter"
+    ],
+    [
+      "leash",
+      "lead"
+    ],
+    [
+      "vitamins",
+      "supplements"
+    ],
+    [
+      "shampoo",
+      "hair wash"
+    ],
+    [
+      "lotion",
+      "moisturizer",
+      "cream"
+    ],
+    [
+      "sunscreen",
+      "sunblock",
+      "spf"
+    ],
+    [
+      "razor",
+      "shaver"
+    ],
+    [
+      "toothbrush",
+      "electric toothbrush"
+    ],
+    [
+      "perfume",
+      "fragrance",
+      "cologne"
+    ],
+    [
+      "notebook",
+      "journal",
+      "notepad"
+    ],
+    [
+      "pen",
+      "ballpoint pen"
+    ],
+    [
+      "book",
+      "paperback",
+      "hardcover"
+    ],
+    [
+      "drill",
+      "power drill",
+      "cordless drill"
+    ],
+    [
+      "screwdriver",
+      "screwdriver set"
+    ],
+    [
+      "wrench",
+      "spanner"
+    ],
+    [
+      "bike",
+      "bicycle"
+    ],
+    [
+      "tent",
+      "camping tent"
+    ],
+    [
+      "yoga mat",
+      "exercise mat"
+    ],
+    [
+      "dumbbells",
+      "hand weights",
+      "free weights"
+    ],
+    [
+      "treadmill",
+      "running machine"
+    ],
+    [
+      "grill",
+      "bbq",
+      "barbecue"
+    ],
+    [
+      "hose",
+      "garden hose"
+    ],
+    [
+      "lawn mower",
+      "lawnmower",
+      "mower"
+    ]
+  ],
+  "abbreviations": {
+    "tv": "television",
+    "ssd": "solid state drive",
+    "hdd": "hard disk drive",
+    "pc": "computer",
+    "usb c": "usb type c",
+    "bt": "bluetooth",
+    "anc": "active noise cancelling",
+    "nc": "noise cancelling",
+    "4k": "4k uhd",
+    "uhd": "ultra hd",
+    "ps5": "playstation 5",
+    "ps4": "playstation 4",
+    "gb": "gigabyte",
+    "tb": "terabyte",
+    "oz": "ounce",
+    "lb": "pound",
+    "lbs": "pounds",
+    "ft": "feet",
+    "qt": "quart"
+  },
+  "broader": {
+    "earbuds": "headphones",
+    "headset": "headphones",
+    "gaming headset": "headphones",
+    "noise cancelling headphones": "headphones",
+    "mechanical keyboard": "keyboard",
+    "gaming keyboard": "keyboard",
+    "gaming mouse": "mouse",
+    "trackball": "mouse",
+    "smartwatch": "watch",
+    "sneakers": "shoes",
+    "running shoes": "shoes",
+    "boots": "shoes",
+    "sandals": "shoes",
+    "hoodie": "sweatshirt",
+    "sweatshirt": "shirt",
+    "t-shirt": "shirt",
+    "espresso machine": "coffee maker",
+    "french press": "coffee maker",
+    "pour over": "coffee maker",
+    "air fryer": "fryer",
+    "skillet": "pan",
+    "cast iron skillet": "skillet",
+    "robot vacuum": "vacuum",
+    "stick vacuum": "vacuum",
+    "power bank": "charger",
+    "wireless charger": "charger",
+    "sd card": "memory card",
+    "microsd card": "memory card",
+    "flash drive": "storage",
+    "ssd": "storage",
+    "gaming laptop": "laptop",
+    "chromebook": "laptop",
+    "ultrabook": "laptop",
+    "tablet": "computer",
+    "e-reader": "tablet",
+    "kindle": "e-reader",
+    "loveseat": "sofa",
+    "sectional": "sofa",
+    "recliner": "chair",
+    "office chair": "chair",
+    "gaming chair": "chair",
+    "standing desk": "desk",
+    "bookcase": "shelf",
+    "floor lamp": "lamp",
+    "desk lamp": "lamp",
+    "tumbler": "cup",
+    "travel mug": "mug",
+    "yoga mat": "mat",
+    "dumbbells": "weights",
+    "kettlebell": "weights",
+    "mountain bike": "bike",
+    "road bike": "bike",
+    "electric toothbrush": "toothbrush",
+    "cordless drill": "drill"
+  },
+  "vocabulary": [
+    "acer",
+    "adapter",
+    "adidas",
+    "adjustable",
+    "airpods",
+    "alarm",
+    "alexa",
+    "aluminum",
+    "amoled",
+    "amplifier",
+    "android",
+    "anker",
+    "antenna",
+    "apple",
+    "armchair",
+    "asus",
+    "audio",
+    "automatic",
+    "baby",
+    "backpack",
+    "bag",
+    "bamboo",
+    "barbie",
+    "bath",
+    "battery",
+    "beach",
+    "bed",
+    "bedding",
+    "bench",
+    "black",
+    "blanket",
+    "blender",
+    "blue",
+    "bluetooth",
+    "board",
+    "book",
+    "boots",
+    "bosch",
+    "bose",
+    "bottle",
+    "bowl",
+    "box",
+    "bracelet",
+    "brush",
+    "bucket",
+    "cabinet",
+    "cable",
+    "calculator",
+    "camera",
+    "camping",
+    "canceling",
+    "cancelling",
+    "candle",
+    "canon",
+    "canvas",
+    "car",
+    "carbon",
+    "cardigan",
+    "carhartt",
+    "carrier",
+    "case",
+    "cat",
+    "ceramic",
+    "chair",
+    "charger",
+    "charging",
+    "children",
+    "chromecast",
+    "clock",
+    "coffee",
+    "columbia",
+    "compact",
+    "compatible",
+    "computer",
+    "cooler",
+    "cordless",
+    "corsair",
+    "cotton",
+    "cover",
+    "crocs",
+    "cuisinart",
+    "curtain",
+    "cushion",
+    "cutting",
+    "dell",
+    "desk",
+    "dewalt",
+    "digital",
+    "dishwasher",
+    "dog",
+    "door",
+    "drawer",
+    "dress",
+    "drone",
+    "dryer",
+    "durable",
+    "duty",
+    "dyson",
+    "earbuds",
+    "earrings",
+    "echo",
+    "electric",
+    "electronic",
+    "ergonomic",
+    "ethernet",
+    "extension",
+    "extra",
+    "fabric",
+    "fan",
+    "filter",
+    "firestick",
+    "fitbit",
+    "fitness",
+    "flashlight",
+    "foam",
+    "folding",
+    "frame",
+    "fryer",
+    "fujifilm",
+    "furniture",
+    "galaxy",
+    "gaming",
+    "garden",
+    "garmin",
+    "glass",
+    "gloves",
+    "gold",
+    "gopro",
+    "gray",
+    "green",
+    "grey",
+    "guitar",
+    "hammer",
+    "hanger",
+    "hasbro",
+    "hat",
+    "hdmi",
+    "headphones",
+    "heater",
+    "heavy",
+    "hiking",
+    "holder",
+    "hook",
+    "humidifier",
+    "hydro",
+    "imac",
+    "instant",
+    "insulated",
+    "ipad",
+    "iphone",
+    "iron",
+    "jacket",
+    "jbl",
+    "jeans",
+    "jewelry",
+    "kettle",
+    "keurig",
+    "keyboard",
+    "kids",
+    "kindle",
+    "kit",
+    "kitchen",
+    "kitchenaid",
+    "knife",
+    "ladder",
+    "lamp",
+    "laptop",
+    "large",
+    "leather",
+    "lego",
+    "lenovo",
+    "lens",
+    "levis",
+    "lightning",
+    "lightweight",
+    "lock",
+    "lodge",
+    "logitech",
+    "luggage",
+    "macbook",
+    "magnetic",
+    "magsafe",
+    "makeup",
+    "makita",
+    "mattel",
+    "mattress",
+    "max",
+    "mechanical",
+    "medium",
+    "men",
+    "mens",
+    "metal",
+    "microphone",
+    "microsoft",
+    "microwave",
+    "milwaukee",
+    "mini",
+    "mirror",
+    "modern",
+    "monitor",
+    "mount",
+    "mouse",
+    "necklace",
+    "nespresso",
+    "nike",
+    "nikon",
+    "ninja",
+    "nintendo",
+    "noise",
+    "oled",
+    "organic",
+    "organizer",
+    "outdoor",
+    "oven",
+    "pack",
+    "pad",
+    "paint",
+    "pajamas",
+    "pan",
+    "paper",
+    "patagonia",
+    "pencil",
+    "phone",
+    "pillow",
+    "pink",
+    "pixel",
+    "plant",
+    "plastic",
+    "playstation",
+    "plus",
+    "portable",
+    "printer",
+    "pro",
+    "projector",
+    "protector",
+    "puma",
+    "purple",
+    "qled",
+    "rack",
+    "razer",
+    "rechargeable",
+    "red",
+    "reebok",
+    "refill",
+    "remote",
+    "replacement",
+    "rgb",
+    "ring",
+    "roku",
+    "rubber",
+    "running",
+    "ryobi",
+    "samsung",
+    "scale",
+    "scissors",
+    "screen",
+    "security",
+    "set",
+    "sheets",
+    "shelf",
+    "shirt",
+    "shoes",
+    "shorts",
+    "silicone",
+    "silver",
+    "skechers",
+    "skirt",
+    "sleeve",
+    "slim",
+    "small",
+    "smart",
+    "socks",
+    "solar",
+    "sony",
+    "speaker",
+    "stainless",
+    "stand",
+    "stanley",
+    "steel",
+    "sticker",
+    "storage",
+    "stove",
+    "strap",
+    "suitcase",
+    "summer",
+    "sunglasses",
+    "surface",
+    "switch",
+    "table",
+    "tablet",
+    "tape",
+    "thermometer",
+    "thunderbolt",
+    "timer",
+    "toaster",
+    "tool",
+    "towel",
+    "toy",
+    "trail",
+    "tray",
+    "tripod",
+    "ultra",
+    "umbrella",
+    "universal",
+    "usb",
+    "vacuum",
+    "vintage",
+    "vitamix",
+    "wallet",
+    "watch",
+    "waterproof",
+    "white",
+    "winter",
+    "wireless",
+    "women",
+    "womens",
+    "wood",
+    "wooden",
+    "xbox",
+    "yellow",
+    "yeti",
+    "yoga",
+    "zipper"
+  ]
+}

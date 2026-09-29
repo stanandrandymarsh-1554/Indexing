@@ -1,0 +1,782 @@
+[
+ {
+  "asin": "SAMPLE0001",
+  "title": "Wireless Noise Cancelling Over-Ear Headphones, 40H Battery, Bluetooth 5.3",
+  "brand": "SoundCore Sample",
+  "category": "Electronics",
+  "price": 79.99,
+  "currency": "USD",
+  "display_price": "$79.99",
+  "rating": 4.5,
+  "review_count": 12840,
+  "features": [
+   "Active noise cancelling",
+   "Foldable design"
+  ]
+ },
+ {
+  "asin": "SAMPLE0002",
+  "title": "Wired Studio Headphones with 3.5mm Jack",
+  "brand": "AudioLab Sample",
+  "category": "Electronics",
+  "price": 34.99,
+  "currency": "USD",
+  "display_price": "$34.99",
+  "rating": 4.3,
+  "review_count": 5120,
+  "features": [
+   "Closed back",
+   "Detachable cable"
+  ]
+ },
+ {
+  "asin": "SAMPLE0003",
+  "title": "True Wireless Earbuds with Charging Case, IPX7 Waterproof",
+  "brand": "SoundCore Sample",
+  "category": "Electronics",
+  "price": 29.99,
+  "currency": "USD",
+  "display_price": "$29.99",
+  "rating": 4.4,
+  "review_count": 20311,
+  "features": [
+   "Bluetooth 5.3",
+   "Touch controls"
+  ]
+ },
+ {
+  "asin": "SAMPLE0004",
+  "title": "Gaming Headset with Microphone, Surround Sound, RGB",
+  "brand": "HyperPlay Sample",
+  "category": "Electronics",
+  "price": 49.99,
+  "currency": "USD",
+  "display_price": "$49.99",
+  "rating": 4.2,
+  "review_count": 8830,
+  "features": [
+   "Noise cancelling mic",
+   "PC PS5 Xbox compatible"
+  ]
+ },
+ {
+  "asin": "SAMPLE0005",
+  "title": "Kids Headphones with Volume Limit, Blue",
+  "brand": "TinyTunes Sample",
+  "category": "Electronics",
+  "price": 15.99,
+  "currency": "USD",
+  "display_price": "$15.99",
+  "rating": 4.6,
+  "review_count": 3312,
+  "features": [
+   "85dB limit",
+   "Adjustable headband"
+  ]
+ },
+ {
+  "asin": "SAMPLE0006",
+  "title": "Portable Bluetooth Speaker, Waterproof, 24H Playtime",
+  "brand": "BoomBox Sample",
+  "category": "Electronics",
+  "price": 39.99,
+  "currency": "USD",
+  "display_price": "$39.99",
+  "rating": 4.6,
+  "review_count": 15420,
+  "features": [
+   "IPX7",
+   "Stereo pairing"
+  ]
+ },
+ {
+  "asin": "SAMPLE0007",
+  "title": "Smart Speaker with Voice Assistant, Charcoal",
+  "brand": "HomeVoice Sample",
+  "category": "Electronics",
+  "price": 49.99,
+  "currency": "USD",
+  "display_price": "$49.99",
+  "rating": 4.5,
+  "review_count": 90210,
+  "features": [
+   "Wifi",
+   "Smart home hub"
+  ]
+ },
+ {
+  "asin": "SAMPLE0008",
+  "title": "Mechanical Gaming Keyboard, Blue Switches, RGB Backlit",
+  "brand": "KeyForge Sample",
+  "category": "Electronics",
+  "price": 59.99,
+  "currency": "USD",
+  "display_price": "$59.99",
+  "rating": 4.5,
+  "review_count": 7011,
+  "features": [
+   "Anti ghosting",
+   "Detachable wrist rest"
+  ]
+ },
+ {
+  "asin": "SAMPLE0009",
+  "title": "Wireless Keyboard and Mouse Combo, Quiet Keys",
+  "brand": "OfficeMate Sample",
+  "category": "Electronics",
+  "price": 32.99,
+  "currency": "USD",
+  "display_price": "$32.99",
+  "rating": 4.4,
+  "review_count": 18800,
+  "features": [
+   "2.4GHz USB receiver",
+   "Long battery life"
+  ]
+ },
+ {
+  "asin": "SAMPLE0010",
+  "title": "Ergonomic Vertical Wireless Mouse, Rechargeable",
+  "brand": "OfficeMate Sample",
+  "category": "Electronics",
+  "price": 24.99,
+  "currency": "USD",
+  "display_price": "$24.99",
+  "rating": 4.3,
+  "review_count": 9600,
+  "features": [
+   "6 buttons",
+   "Adjustable DPI"
+  ]
+ },
+ {
+  "asin": "SAMPLE0011",
+  "title": "Gaming Mouse, 16000 DPI, Lightweight Honeycomb Shell",
+  "brand": "HyperPlay Sample",
+  "category": "Electronics",
+  "price": 39.99,
+  "currency": "USD",
+  "display_price": "$39.99",
+  "rating": 4.6,
+  "review_count": 4420,
+  "features": [
+   "RGB",
+   "Programmable buttons"
+  ]
+ },
+ {
+  "asin": "SAMPLE0012",
+  "title": "27 Inch 4K UHD Monitor, IPS, HDR10",
+  "brand": "ViewPro Sample",
+  "category": "Electronics",
+  "price": 279.99,
+  "currency": "USD",
+  "display_price": "$279.99",
+  "rating": 4.5,
+  "review_count": 3900,
+  "features": [
+   "USB-C 65W",
+   "Height adjustable stand"
+  ]
+ },
+ {
+  "asin": "SAMPLE0013",
+  "title": "55 Inch 4K Smart TV with HDR",
+  "brand": "ViewPro Sample",
+  "category": "Electronics",
+  "price": 429.99,
+  "currency": "USD",
+  "display_price": "$429.99",
+  "rating": 4.4,
+  "review_count": 11020,
+  "features": [
+   "Streaming apps built in",
+   "3 HDMI ports"
+  ]
+ },
+ {
+  "asin": "SAMPLE0014",
+  "title": "15.6 Inch Laptop, 16GB RAM, 512GB SSD",
+  "brand": "Nimbus Sample",
+  "category": "Electronics",
+  "price": 649.99,
+  "currency": "USD",
+  "display_price": "$649.99",
+  "rating": 4.3,
+  "review_count": 2140,
+  "features": [
+   "Full HD display",
+   "Backlit keyboard"
+  ]
+ },
+ {
+  "asin": "SAMPLE0015",
+  "title": "Gaming Laptop, RTX Graphics, 32GB RAM, 1TB SSD",
+  "brand": "Nimbus Sample",
+  "category": "Electronics",
+  "price": 1399.99,
+  "currency": "USD",
+  "display_price": "$1,399.99",
+  "rating": 4.5,
+  "review_count": 1130,
+  "features": [
+   "165Hz display",
+   "RGB keyboard"
+  ]
+ },
+ {
+  "asin": "SAMPLE0016",
+  "title": "Portable SSD 1TB, USB-C, 1050MB/s",
+  "brand": "DataVault Sample",
+  "category": "Electronics",
+  "price": 89.99,
+  "currency": "USD",
+  "display_price": "$89.99",
+  "rating": 4.7,
+  "review_count": 25500,
+  "features": [
+   "Shock resistant",
+   "Pocket size"
+  ]
+ },
+ {
+  "asin": "SAMPLE0017",
+  "title": "MicroSD Card 256GB with Adapter",
+  "brand": "DataVault Sample",
+  "category": "Electronics",
+  "price": 22.99,
+  "currency": "USD",
+  "display_price": "$22.99",
+  "rating": 4.8,
+  "review_count": 60300,
+  "features": [
+   "A2 U3 V30",
+   "4K video"
+  ]
+ },
+ {
+  "asin": "SAMPLE0018",
+  "title": "USB C to USB C Cable 6ft, 100W Fast Charging, 2 Pack",
+  "brand": "WireWorks Sample",
+  "category": "Electronics",
+  "price": 11.99,
+  "currency": "USD",
+  "display_price": "$11.99",
+  "rating": 4.6,
+  "review_count": 40050,
+  "features": [
+   "Braided nylon",
+   "480Mbps data"
+  ]
+ },
+ {
+  "asin": "SAMPLE0019",
+  "title": "Power Bank 20000mAh, USB-C PD 22.5W",
+  "brand": "ChargeUp Sample",
+  "category": "Electronics",
+  "price": 35.99,
+  "currency": "USD",
+  "display_price": "$35.99",
+  "rating": 4.5,
+  "review_count": 33100,
+  "features": [
+   "Two devices at once",
+   "LED display"
+  ]
+ },
+ {
+  "asin": "SAMPLE0020",
+  "title": "Magnetic Wireless Charger Stand for Phone",
+  "brand": "ChargeUp Sample",
+  "category": "Electronics",
+  "price": 25.99,
+  "currency": "USD",
+  "display_price": "$25.99",
+  "rating": 4.2,
+  "review_count": 6100,
+  "features": [
+   "15W",
+   "Foldable"
+  ]
+ },
+ {
+  "asin": "SAMPLE0021",
+  "title": "Clear Phone Case with MagSafe, Shockproof",
+  "brand": "ShieldCase Sample",
+  "category": "Electronics",
+  "price": 14.99,
+  "currency": "USD",
+  "display_price": "$14.99",
+  "rating": 4.5,
+  "review_count": 52000,
+  "features": [
+   "Anti yellowing",
+   "Raised edges"
+  ]
+ },
+ {
+  "asin": "SAMPLE0022",
+  "title": "Smartwatch with Heart Rate and Sleep Tracking",
+  "brand": "PulseFit Sample",
+  "category": "Electronics",
+  "price": 59.99,
+  "currency": "USD",
+  "display_price": "$59.99",
+  "rating": 4.2,
+  "review_count": 14500,
+  "features": [
+   "GPS",
+   "5 ATM water resistant"
+  ]
+ },
+ {
+  "asin": "SAMPLE0023",
+  "title": "Men's Lightweight Running Shoes, Breathable Mesh",
+  "brand": "StrideOn Sample",
+  "category": "Fashion",
+  "price": 64.99,
+  "currency": "USD",
+  "display_price": "$64.99",
+  "rating": 4.4,
+  "review_count": 8800,
+  "features": [
+   "Cushioned sole",
+   "Available in black, grey, blue"
+  ]
+ },
+ {
+  "asin": "SAMPLE0024",
+  "title": "Women's Trail Running Shoes, Waterproof",
+  "brand": "StrideOn Sample",
+  "category": "Fashion",
+  "price": 89.99,
+  "currency": "USD",
+  "display_price": "$89.99",
+  "rating": 4.5,
+  "review_count": 3450,
+  "features": [
+   "Grippy outsole",
+   "Gore style membrane"
+  ]
+ },
+ {
+  "asin": "SAMPLE0025",
+  "title": "Men's Waterproof Hiking Boots, Leather",
+  "brand": "Ridgeline Sample",
+  "category": "Fashion",
+  "price": 119.99,
+  "currency": "USD",
+  "display_price": "$119.99",
+  "rating": 4.6,
+  "review_count": 6200,
+  "features": [
+   "Ankle support",
+   "Vibram style sole"
+  ]
+ },
+ {
+  "asin": "SAMPLE0026",
+  "title": "Unisex Pullover Hoodie, Cotton Blend, Heather Grey",
+  "brand": "CozyCo Sample",
+  "category": "Fashion",
+  "price": 27.99,
+  "currency": "USD",
+  "display_price": "$27.99",
+  "rating": 4.5,
+  "review_count": 22000,
+  "features": [
+   "Kangaroo pocket",
+   "Machine washable"
+  ]
+ },
+ {
+  "asin": "SAMPLE0027",
+  "title": "Women's Packable Down Jacket, Black",
+  "brand": "NorthPeak Sample",
+  "category": "Fashion",
+  "price": 99.99,
+  "currency": "USD",
+  "display_price": "$99.99",
+  "rating": 4.6,
+  "review_count": 5100,
+  "features": [
+   "Water resistant",
+   "Stuff sack included"
+  ]
+ },
+ {
+  "asin": "SAMPLE0028",
+  "title": "Travel Laptop Backpack, 17 Inch, USB Charging Port",
+  "brand": "TrekPack Sample",
+  "category": "Fashion",
+  "price": 39.99,
+  "currency": "USD",
+  "display_price": "$39.99",
+  "rating": 4.7,
+  "review_count": 71000,
+  "features": [
+   "Anti theft pocket",
+   "Water resistant"
+  ]
+ },
+ {
+  "asin": "SAMPLE0029",
+  "title": "Polarized Sunglasses for Men and Women, UV400",
+  "brand": "SunShade Sample",
+  "category": "Fashion",
+  "price": 19.99,
+  "currency": "USD",
+  "display_price": "$19.99",
+  "rating": 4.4,
+  "review_count": 12000,
+  "features": [
+   "Lightweight frame",
+   "Case included"
+  ]
+ },
+ {
+  "asin": "SAMPLE0030",
+  "title": "Air Fryer 6 Quart, Digital Touchscreen",
+  "brand": "KitchenPro Sample",
+  "category": "HomeAndKitchen",
+  "price": 89.99,
+  "currency": "USD",
+  "display_price": "$89.99",
+  "rating": 4.7,
+  "review_count": 48000,
+  "features": [
+   "Nonstick basket",
+   "8 presets"
+  ]
+ },
+ {
+  "asin": "SAMPLE0031",
+  "title": "Programmable Coffee Maker, 12 Cup, Stainless Steel",
+  "brand": "BrewMaster Sample",
+  "category": "HomeAndKitchen",
+  "price": 49.99,
+  "currency": "USD",
+  "display_price": "$49.99",
+  "rating": 4.4,
+  "review_count": 26000,
+  "features": [
+   "Auto shutoff",
+   "Brew strength control"
+  ]
+ },
+ {
+  "asin": "SAMPLE0032",
+  "title": "Espresso Machine with Milk Frother, 20 Bar",
+  "brand": "BrewMaster Sample",
+  "category": "HomeAndKitchen",
+  "price": 149.99,
+  "currency": "USD",
+  "display_price": "$149.99",
+  "rating": 4.3,
+  "review_count": 7900,
+  "features": [
+   "Steam wand",
+   "Removable water tank"
+  ]
+ },
+ {
+  "asin": "SAMPLE0033",
+  "title": "French Press Coffee Maker, 34 oz, Glass",
+  "brand": "BrewMaster Sample",
+  "category": "HomeAndKitchen",
+  "price": 24.99,
+  "currency": "USD",
+  "display_price": "$24.99",
+  "rating": 4.6,
+  "review_count": 31000,
+  "features": [
+   "4 level filtration",
+   "Heat resistant glass"
+  ]
+ },
+ {
+  "asin": "SAMPLE0034",
+  "title": "Pre-Seasoned Cast Iron Skillet, 12 Inch",
+  "brand": "IronHearth Sample",
+  "category": "HomeAndKitchen",
+  "price": 29.99,
+  "currency": "USD",
+  "display_price": "$29.99",
+  "rating": 4.7,
+  "review_count": 98000,
+  "features": [
+   "Oven safe",
+   "Induction compatible"
+  ]
+ },
+ {
+  "asin": "SAMPLE0035",
+  "title": "Nonstick Frying Pan Set, 3 Piece",
+  "brand": "IronHearth Sample",
+  "category": "HomeAndKitchen",
+  "price": 39.99,
+  "currency": "USD",
+  "display_price": "$39.99",
+  "rating": 4.5,
+  "review_count": 15000,
+  "features": [
+   "PFOA free",
+   "Dishwasher safe"
+  ]
+ },
+ {
+  "asin": "SAMPLE0036",
+  "title": "Insulated Stainless Steel Water Bottle, 32 oz",
+  "brand": "HydroLite Sample",
+  "category": "HomeAndKitchen",
+  "price": 27.99,
+  "currency": "USD",
+  "display_price": "$27.99",
+  "rating": 4.8,
+  "review_count": 110000,
+  "features": [
+   "Keeps cold 24 hours",
+   "Leak proof lid"
+  ]
+ },
+ {
+  "asin": "SAMPLE0037",
+  "title": "Insulated Tumbler with Handle and Straw, 40 oz",
+  "brand": "HydroLite Sample",
+  "category": "HomeAndKitchen",
+  "price": 34.99,
+  "currency": "USD",
+  "display_price": "$34.99",
+  "rating": 4.7,
+  "review_count": 65000,
+  "features": [
+   "Cup holder friendly",
+   "BPA free"
+  ]
+ },
+ {
+  "asin": "SAMPLE0038",
+  "title": "Robot Vacuum Cleaner with Self Emptying Base",
+  "brand": "CleanBot Sample",
+  "category": "HomeAndKitchen",
+  "price": 299.99,
+  "currency": "USD",
+  "display_price": "$299.99",
+  "rating": 4.3,
+  "review_count": 9800,
+  "features": [
+   "Wifi app control",
+   "Pet hair"
+  ]
+ },
+ {
+  "asin": "SAMPLE0039",
+  "title": "Cordless Stick Vacuum, Lightweight, 40 Min Runtime",
+  "brand": "CleanBot Sample",
+  "category": "HomeAndKitchen",
+  "price": 129.99,
+  "currency": "USD",
+  "display_price": "$129.99",
+  "rating": 4.4,
+  "review_count": 12400,
+  "features": [
+   "HEPA filter",
+   "Wall mount"
+  ]
+ },
+ {
+  "asin": "SAMPLE0040",
+  "title": "LED Desk Lamp with Wireless Charger, Dimmable",
+  "brand": "BrightNest Sample",
+  "category": "HomeAndKitchen",
+  "price": 36.99,
+  "currency": "USD",
+  "display_price": "$36.99",
+  "rating": 4.5,
+  "review_count": 8700,
+  "features": [
+   "5 color modes",
+   "USB port"
+  ]
+ },
+ {
+  "asin": "SAMPLE0041",
+  "title": "Memory Foam Pillow, Queen Size, 2 Pack",
+  "brand": "DreamRest Sample",
+  "category": "HomeAndKitchen",
+  "price": 39.99,
+  "currency": "USD",
+  "display_price": "$39.99",
+  "rating": 4.4,
+  "review_count": 23000,
+  "features": [
+   "Cooling cover",
+   "Adjustable loft"
+  ]
+ },
+ {
+  "asin": "SAMPLE0042",
+  "title": "Non Slip Yoga Mat, 6mm Thick, with Carrying Strap",
+  "brand": "ZenFlex Sample",
+  "category": "SportsAndOutdoors",
+  "price": 25.99,
+  "currency": "USD",
+  "display_price": "$25.99",
+  "rating": 4.6,
+  "review_count": 41000,
+  "features": [
+   "TPE material",
+   "Eco friendly"
+  ]
+ },
+ {
+  "asin": "SAMPLE0043",
+  "title": "Adjustable Dumbbells, 25 lb Pair",
+  "brand": "IronCore Sample",
+  "category": "SportsAndOutdoors",
+  "price": 149.99,
+  "currency": "USD",
+  "display_price": "$149.99",
+  "rating": 4.6,
+  "review_count": 6600,
+  "features": [
+   "Quick select dial",
+   "Compact design"
+  ]
+ },
+ {
+  "asin": "SAMPLE0044",
+  "title": "2 Person Camping Tent, Waterproof, Easy Setup",
+  "brand": "TrailBase Sample",
+  "category": "SportsAndOutdoors",
+  "price": 69.99,
+  "currency": "USD",
+  "display_price": "$69.99",
+  "rating": 4.4,
+  "review_count": 9200,
+  "features": [
+   "Rainfly included",
+   "Carry bag"
+  ]
+ },
+ {
+  "asin": "SAMPLE0045",
+  "title": "Building Bricks Set, 1000 Pieces, Classic Colors",
+  "brand": "BlockBuddy Sample",
+  "category": "ToysAndGames",
+  "price": 34.99,
+  "currency": "USD",
+  "display_price": "$34.99",
+  "rating": 4.8,
+  "review_count": 15600,
+  "features": [
+   "Compatible with major brands",
+   "Storage box"
+  ]
+ },
+ {
+  "asin": "SAMPLE0046",
+  "title": "1000 Piece Jigsaw Puzzle, Mountain Landscape",
+  "brand": "PuzzlePeak Sample",
+  "category": "ToysAndGames",
+  "price": 16.99,
+  "currency": "USD",
+  "display_price": "$16.99",
+  "rating": 4.7,
+  "review_count": 4300,
+  "features": [
+   "Thick pieces",
+   "Poster included"
+  ]
+ },
+ {
+  "asin": "SAMPLE0047",
+  "title": "Grain Free Dry Dog Food, Chicken Recipe, 24 lb",
+  "brand": "HappyTail Sample",
+  "category": "PetSupplies",
+  "price": 54.99,
+  "currency": "USD",
+  "display_price": "$54.99",
+  "rating": 4.6,
+  "review_count": 19000,
+  "features": [
+   "High protein",
+   "No corn wheat soy"
+  ]
+ },
+ {
+  "asin": "SAMPLE0048",
+  "title": "Clumping Cat Litter, Unscented, 40 lb",
+  "brand": "HappyTail Sample",
+  "category": "PetSupplies",
+  "price": 21.99,
+  "currency": "USD",
+  "display_price": "$21.99",
+  "rating": 4.5,
+  "review_count": 28000,
+  "features": [
+   "Low dust",
+   "Odor control"
+  ]
+ },
+ {
+  "asin": "SAMPLE0049",
+  "title": "Rechargeable Electric Toothbrush with 4 Brush Heads",
+  "brand": "SmilePro Sample",
+  "category": "Beauty",
+  "price": 39.99,
+  "currency": "USD",
+  "display_price": "$39.99",
+  "rating": 4.6,
+  "review_count": 37000,
+  "features": [
+   "2 minute timer",
+   "Travel case"
+  ]
+ },
+ {
+  "asin": "SAMPLE0050",
+  "title": "Mineral Sunscreen SPF 50, Reef Friendly, 3 oz",
+  "brand": "SunGuard Sample",
+  "category": "Beauty",
+  "price": 14.99,
+  "currency": "USD",
+  "display_price": "$14.99",
+  "rating": 4.5,
+  "review_count": 11000,
+  "features": [
+   "Water resistant 80 min",
+   "Fragrance free"
+  ]
+ },
+ {
+  "asin": "SAMPLE0051",
+  "title": "20V Cordless Drill Driver Kit with Battery and Charger",
+  "brand": "BuildRight Sample",
+  "category": "Tools",
+  "price": 79.99,
+  "currency": "USD",
+  "display_price": "$79.99",
+  "rating": 4.7,
+  "review_count": 24000,
+  "features": [
+   "2 speed",
+   "LED work light"
+  ]
+ },
+ {
+  "asin": "SAMPLE0052",
+  "title": "Precision Screwdriver Set, 60 in 1, Magnetic",
+  "brand": "BuildRight Sample",
+  "category": "Tools",
+  "price": 19.99,
+  "currency": "USD",
+  "display_price": "$19.99",
+  "rating": 4.7,
+  "review_count": 52000,
+  "features": [
+   "Electronics repair",
+   "Storage case"
+  ]
+ }
+]
