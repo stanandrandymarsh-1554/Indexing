@@ -109,6 +109,8 @@ _ROBOT_MARKERS = (
     "sorry, we just need to make sure you're not a robot",
 )
 _NO_RESULTS_RE = re.compile(r">\s*No results for\s*<", re.I)
+# A real result element, not merely the class name mentioned inside a script.
+_RESULT_RE = re.compile(r"""data-component-type=["']s-search-result["']""")
 
 
 class RobotCheckError(ProviderError):
@@ -125,6 +127,12 @@ DEBUG_PAGE = "amazon_unreadable_page.html"
 
 class AmazonWebProvider:
     max_page = 7  # Amazon rarely serves more than ~7 pages of results for a query
+
+    #: Appended to block/unreadable-page errors: what the user can try next.
+    hint = (
+        " If this keeps happening, use Chrome mode instead: run `pip3 install playwright` once, "
+        "then add --backend browser to your search."
+    )
 
     def __init__(
         self,
@@ -166,22 +174,22 @@ class AmazonWebProvider:
 
     def search(self, keywords: str, filters: SearchFilters, page: int = 1) -> list[Product]:
         if self._blocked:
-            raise RobotCheckError(_blocked_message())
+            raise RobotCheckError(_blocked_message() + self.hint)
         html = self._fetch(self.search_url(keywords, filters, page))
         low = html.lower()
         if any(m in low for m in _ROBOT_MARKERS):
             self._blocked = True
-            raise RobotCheckError(_blocked_message())
+            raise RobotCheckError(_blocked_message() + self.hint)
         if _NO_RESULTS_RE.search(html):
             # Amazon found nothing for these exact words; anything it shows below that message
             # is its own guess. Report "no results" so our fallback does the guessing, visibly.
             return []
-        if page == 1 and "s-search-result" not in html:
+        if page == 1 and not _RESULT_RE.search(html):
             # Not a results page and not "no results" either: most likely a bot check we don't
             # recognise. Stop everything rather than keep firing searches at a page we can't read,
             # which is how a soft check turns into a hard block.
             self._blocked = True
-            raise UnreadablePageError(_unreadable_message(_save_debug_page(html)))
+            raise UnreadablePageError(_unreadable_message(_save_debug_page(html)) + self.hint)
         products = parse_search_page(html, self.host, include_sponsored=self.include_sponsored)
         # Amazon's rating/price facets aren't reliable URL parameters, so enforce them here too.
         return [p for p in products if _passes(p, filters)]
@@ -201,7 +209,7 @@ class AmazonWebProvider:
         except urllib.error.HTTPError as e:
             if e.code in (503, 429):
                 self._blocked = True
-                raise RobotCheckError(_blocked_message(f"HTTP {e.code}")) from e
+                raise RobotCheckError(_blocked_message(f"HTTP {e.code}") + self.hint) from e
             if e.code == 404:
                 return ""
             raise ProviderError(f"Amazon returned HTTP {e.code} for {url}") from e
