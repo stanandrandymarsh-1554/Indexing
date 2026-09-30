@@ -128,6 +128,33 @@ class ProviderTests(unittest.TestCase):
             prov.search("b", SearchFilters())
         self.assertEqual(len(opener.urls), 1)  # the second search never hit the network
 
+    def test_unrecognised_page_stops_everything_and_is_saved(self):
+        import os
+        import tempfile
+
+        from amazon_search.providers.amazon_web import DEBUG_PAGE, UnreadablePageError
+
+        odd = "<html><body><script src='challenge.js'></script>Checking your browser</body></html>"
+        prov, opener = provider(odd, PAGE)
+        with tempfile.TemporaryDirectory() as tmp:
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            try:
+                with self.assertRaises(UnreadablePageError) as ctx:
+                    prov.search("a", SearchFilters())
+                self.assertIn(DEBUG_PAGE, str(ctx.exception))
+                with open(DEBUG_PAGE) as f:
+                    self.assertIn("Checking your browser", f.read())
+            finally:
+                os.chdir(cwd)
+        with self.assertRaises(RobotCheckError):
+            prov.search("b", SearchFilters())
+        self.assertEqual(len(opener.urls), 1)
+
+    def test_empty_later_page_is_just_the_end_of_results(self):
+        prov, _ = provider("<html><body></body></html>")
+        self.assertEqual(prov.search("a", SearchFilters(), page=2), [])
+
     def test_http_503_is_a_robot_check(self):
         err = urllib.error.HTTPError("https://www.amazon.com/s", 503, "busy", {}, io.BytesIO(b""))
         prov, _ = provider(err)

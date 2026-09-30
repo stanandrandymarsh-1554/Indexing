@@ -22,43 +22,61 @@ A command-line tool (and Python library) for searching Amazon thoroughly. It:
 
 ## Setup
 
-Python 3.9 or newer. There are no third-party dependencies.
+Python 3.9 or newer. The core tool has no third-party dependencies. For **Chrome mode**, the most
+reliable way to search amazon.co.uk (see below), also install Playwright once:
 
 ```sh
-pip install .            # installs the `amazon-search` command
-# or run it without installing:
-python -m amazon_search --help
+pip3 install playwright
 ```
+
+Then run it from the project folder:
+
+```sh
+python3 -m amazon_search "wireless earbuds"
+python3 -m amazon_search --help
+```
+
+(`pip install .` also installs an `amazon-search` command, if you prefer.)
 
 ### Where results come from
 
-The tool has three backends, chosen with `--backend`:
+The tool has four backends, chosen with `--backend`:
 
 | Backend | What it does | Needs |
 |---|---|---|
-| `web` (default) | Reads the same search-results pages you'd see on amazon.com | Nothing |
+| `browser` | Runs the searches in a Chrome window on your computer | `pip3 install playwright`, and Google Chrome |
+| `web` | Fetches Amazon's search pages directly, without a browser | Nothing, but Amazon often refuses it |
 | `api` | Amazon's official **Creators API** | An Amazon Associates account with at least 10 qualifying sales in the past 30 days |
 | `offline` | A small bundled catalog of made-up products | Nothing (for testing) |
 
-If `AMAZON_CREDENTIAL_ID` is set, the default is `api`; otherwise it's `web`. You can also set
-`AMAZON_SEARCH_BACKEND` to `web`, `api` or `offline`.
+The default is `api` if `AMAZON_CREDENTIAL_ID` is set, otherwise `browser` if Playwright is
+installed, otherwise `web`. You can also set `AMAZON_SEARCH_BACKEND`.
 
-#### `web`: amazon.com directly
+It searches **amazon.co.uk** by default. Use `--marketplace www.amazon.com` (or set
+`AMAZON_MARKETPLACE`) for another Amazon country site.
+
+#### `browser` and `web`: amazon.co.uk directly
 
 Intended for **personal, low-volume use only**. Amazon's Conditions of Use don't allow automated
-access, and Amazon blocks clients it thinks are bots. To keep that unlikely, the client:
+access, and Amazon blocks clients it thinks are bots. Both modes:
 
-- waits 3 seconds between requests and makes at most 12 per search by default (`--max-requests`),
+- wait 3 seconds between requests and make at most 12 per search by default (`--max-requests`),
   so a thorough search takes around 30 seconds;
-- leaves out sponsored results (`--include-sponsored` keeps them);
-- stops at once, without retrying, if Amazon shows a robot check. It keeps any results found so
-  far and tells you. If that happens, wait an hour or more before searching again.
+- leave out sponsored results (`--include-sponsored` keeps them);
+- stop at once if Amazon shows a robot check or a page they can't read, keeping any results
+  found so far. An unreadable page is saved as `amazon_unreadable_page.html` so the parser can be
+  fixed.
+
+Amazon increasingly answers plain scripts (`web`) with a "check you're human" page, while serving
+normal browsers as usual. `browser` mode avoids that by loading the pages in Chrome. The window
+is visible (`--headless` hides it). If Amazon still asks you to confirm you're human, do it in
+that window and the search carries on. The tool never tries to solve such checks itself. Chrome
+mode uses its own profile, separate from your normal Chrome, kept in
+`~/.cache/amazon_search/chrome-profile`, so cookies and passed checks are remembered.
 
 Amazon changes its page layout now and then. If searches suddenly return nothing, the parsing
 code in `amazon_search/providers/amazon_web.py` probably needs updating. If you ever share this
 tool, switch to the `api` backend or a paid product-data service.
-
-It searches **amazon.co.uk** by default. Use `--marketplace www.amazon.com` (or set `AMAZON_MARKETPLACE`) for another Amazon country site.
 
 #### `api`: Amazon Creators API
 
@@ -123,8 +141,9 @@ amazon-search                                   # interactive prompt
 | `--quick` | skip related-term searches when the exact query already has results |
 | `--min-results N` | keep loosening the search until at least N products are found |
 | `--min-score` | hide results that match less than this share of your query (0–1) |
-| `--max-requests` | limit on requests to Amazon per search (default 12 for `web`, 25 for `api`) |
-| `--backend` | `web`, `api` or `offline` (see above) |
+| `--max-requests` | limit on requests to Amazon per search (default 12 for `browser`/`web`, 25 for `api`) |
+| `--backend` | `browser`, `web`, `api` or `offline` (see above) |
+| `--headless` | Chrome mode: don't show the window |
 
 Filters are treated as preferences. If they rule out everything, they're dropped one at a
 time and the output says which ones.
@@ -175,7 +194,8 @@ amazon_search/
   lexicon.py        synonym/abbreviation/broader-term lookups and spelling vocabulary
   relevance.py      scores each product against the original query
   providers/
-    amazon_web.py   amazon.com search-page reader (default backend)
+    amazon_browser.py Chrome mode: loads search pages in a real browser (Playwright)
+    amazon_web.py   Amazon search-page fetcher and parser
     creators_api.py Amazon Creators API client (OAuth2, throttling, retries)
     offline.py      local JSON catalog backend
   data/

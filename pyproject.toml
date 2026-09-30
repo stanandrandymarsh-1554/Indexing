@@ -10,6 +10,9 @@ readme = "README.md"
 requires-python = ">=3.9"
 dependencies = []
 
+[project.optional-dependencies]
+browser = ["playwright"]
+
 [project.scripts]
 amazon-search = "amazon_search.cli:main"
 
