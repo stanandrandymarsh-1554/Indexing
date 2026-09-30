@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import gzip
 import http.cookiejar
+import os
 import re
 import threading
 import time
@@ -114,6 +115,14 @@ class RobotCheckError(ProviderError):
     """Amazon served a CAPTCHA / automated-access page instead of results."""
 
 
+class UnreadablePageError(ProviderError):
+    """Amazon sent a page that is neither results nor "no results" (e.g. a new bot check)."""
+
+
+#: Where the last page we couldn't read is saved, so it can be inspected or sent for a fix.
+DEBUG_PAGE = "amazon_unreadable_page.html"
+
+
 class AmazonWebProvider:
     max_page = 7  # Amazon rarely serves more than ~7 pages of results for a query
 
@@ -167,6 +176,12 @@ class AmazonWebProvider:
             # Amazon found nothing for these exact words; anything it shows below that message
             # is its own guess. Report "no results" so our fallback does the guessing, visibly.
             return []
+        if page == 1 and "s-search-result" not in html:
+            # Not a results page and not "no results" either: most likely a bot check we don't
+            # recognise. Stop everything rather than keep firing searches at a page we can't read,
+            # which is how a soft check turns into a hard block.
+            self._blocked = True
+            raise UnreadablePageError(_unreadable_message(_save_debug_page(html)))
         products = parse_search_page(html, self.host, include_sponsored=self.include_sponsored)
         # Amazon's rating/price facets aren't reliable URL parameters, so enforce them here too.
         return [p for p in products if _passes(p, filters)]
@@ -205,6 +220,24 @@ def _blocked_message(detail: str = "") -> str:
         f"Amazon is blocking automated requests right now{extra}. Wait a while (often an hour or "
         "more) before trying again, and search less often. Opening amazon.com in a normal browser "
         "on the same network and solving any check there can also help."
+    )
+
+
+def _save_debug_page(html: str) -> Optional[str]:
+    try:
+        with open(DEBUG_PAGE, "w", encoding="utf-8") as f:
+            f.write(html)
+        return os.path.abspath(DEBUG_PAGE)
+    except OSError:
+        return None
+
+
+def _unreadable_message(path: Optional[str]) -> str:
+    saved = f" The page was saved to {path}." if path else ""
+    return (
+        "Amazon sent a page that isn't search results, probably a check for automated "
+        f"requests, so the search stopped to avoid getting blocked.{saved} Wait a while "
+        "before searching again."
     )
 
 
